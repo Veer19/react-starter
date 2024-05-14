@@ -9,6 +9,7 @@ const App = () => {
   const handleLogin = () => {
     console.log(email, password);
   };
+  const [names, setNames] = useState(["veer", "shriyank", "kundan"]);
   return (
     <div>
       <h1>Login</h1>
@@ -27,6 +28,10 @@ const App = () => {
         }}
       ></input>
       <button onClick={handleLogin}>Login</button>
+      {names.map((name, index) => {
+        return <p key={index}>{name}</p>;
+      })}
+      {names.length == 0 ? <p>List Empty</p> : <p>List has elements</p>}
     </div>
   );
 };
