@@ -1,37 +1,35 @@
 import { useEffect, useState } from "react";
 
 const App = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [todoList, setTodoList] = useState([]);
+  const [newTodoItem, setNewTodoItem] = useState("");
   useEffect(() => {
     console.log(name);
   }, [name]);
-  const handleLogin = () => {
-    console.log(email, password);
+  const handleAddItem = () => {
+    setTodoList([newTodoItem,...todoList])
+    setNewTodoItem("")
   };
   const [names, setNames] = useState(["veer", "shriyank", "kundan"]);
   return (
     <div>
-      <h1>Login</h1>
+      <h1>To Do List</h1>
       <input
-        placeholder="Email"
-        type="email"
+        placeholder="Enter tasks"
+        type="text"
+        value={newTodoItem}
+        onKeyDown={(event) => {
+          if(event.key == "Enter")
+          handleAddItem()
+        }}
         onChange={(event) => {
-          setEmail(event.target.value);
+          setNewTodoItem(event.target.value);
         }}
       ></input>
-      <input
-        placeholder="Password"
-        type="password"
-        onChange={(event) => {
-          setPassword(event.target.value);
-        }}
-      ></input>
-      <button onClick={handleLogin}>Login</button>
-      {names.map((name, index) => {
-        return <p key={index}>{name}</p>;
+      <button onClick={handleAddItem}>ADD</button>
+      {todoList.length == 0 ? <p>No tasks</p> : todoList.map((todoItem, index) => {
+        return <p key={index}>{todoItem}</p>;
       })}
-      {names.length == 0 ? <p>List Empty</p> : <p>List has elements</p>}
     </div>
   );
 };
