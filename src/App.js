@@ -1,18 +1,20 @@
 import { useEffect, useState } from "react";
-
+import Header from "components/Header";
 const App = () => {
+  const [name, setName] = useState("Veer");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  useEffect(() => {
-    console.log(name);
-  }, [name]);
   const handleLogin = () => {
     console.log(email, password);
   };
-  const [names, setNames] = useState(["veer", "shriyank", "kundan"]);
+  const handleUpdateEmail = (email) => {
+    if (email != "") {
+      setEmail(email);
+    }
+  };
   return (
     <div>
-      <h1>Login</h1>
+      <Header userName={email} setUsername={handleUpdateEmail} />
       <input
         placeholder="Email"
         type="email"
@@ -28,10 +30,6 @@ const App = () => {
         }}
       ></input>
       <button onClick={handleLogin}>Login</button>
-      {names.map((name, index) => {
-        return <p key={index}>{name}</p>;
-      })}
-      {names.length == 0 ? <p>List Empty</p> : <p>List has elements</p>}
     </div>
   );
 };
