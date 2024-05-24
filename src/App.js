@@ -1,24 +1,9 @@
-import { useState } from "react";
-import AddTodo from "components/AddTodo";
-import SearchTodo from "components/SearchTodo";
-import ListTodo from "components/ListTodo";
-
+import { Link, RouterProvider } from "react-router-dom";
+import router from "routes";
 const App = () => {
-  const [todoList, setTodoList] = useState([]);
-  const [searchItem, setSearchItem] = useState("");
-
-  const filterTodoList = () => {
-    const filteredList = todoList.filter((item) =>
-      item.toLowerCase().includes(searchItem.toLowerCase())
-    );
-    return filteredList;
-  };
   return (
     <div>
-      <h1>To Do List</h1>
-      <AddTodo setTodoList={setTodoList}> </AddTodo>
-      <SearchTodo searchItem={searchItem} setSearchItem={setSearchItem}></SearchTodo>
-      <ListTodo searchItem={searchItem} todoList={todoList}></ListTodo>
+      <RouterProvider router={router} />
     </div>
   );
 };

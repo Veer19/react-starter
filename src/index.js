@@ -16,10 +16,13 @@ Coded by www.creative-tim.com
 import React from "react";
 import * as ReactDOMClient from "react-dom/client";
 import App from "App";
-
 const container = document.getElementById("root");
-
+import { BrowserRouter } from "react-router-dom";
 // Create a root.
 const root = ReactDOMClient.createRoot(container);
 
-root.render(<App />);
+root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
