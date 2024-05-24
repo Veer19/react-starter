@@ -2,7 +2,6 @@ import { useState } from "react";
 import AddTodo from "components/AddTodo";
 import SearchTodo from "components/SearchTodo";
 import ListTodo from "components/ListTodo";
-
 const Dashboard = () => {
   const [todoList, setTodoList] = useState([]);
   const [searchItem, setSearchItem] = useState("");
