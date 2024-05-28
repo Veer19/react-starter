@@ -10,6 +10,19 @@ const Dashboard = () => {
   const [todoList, setTodoList] = useState([]);
   const [searchItem, setSearchItem] = useState("");
   const [searchStatus, setSearchStatus] = useState("All");
+  const handleUpdateTodoStatus = (index, status) => {
+    console.log(index, status);
+    let updatedTodo = {
+      ...todoList[index],
+      status: status,
+    };
+    console.log(updatedTodo);
+    setTodoList((prev) => {
+      const updatedTodoList = [...prev];
+      updatedTodoList.splice(index, 1, updatedTodo);
+      return updatedTodoList;
+    });
+  };
   return (
     <div>
       {/* <h1>To Do List</h1> */}
@@ -30,7 +43,12 @@ const Dashboard = () => {
       </Row>
       {/* <AddTodo setTodoList={setTodoList}> </AddTodo>
       <SearchTodo searchItem={searchItem} setSearchItem={setSearchItem}></SearchTodo> */}
-      <ListTodo searchItem={searchItem} todoList={todoList} searchStatus={searchStatus}></ListTodo>
+      <ListTodo
+        searchItem={searchItem}
+        todoList={todoList}
+        searchStatus={searchStatus}
+        updateTodoStatus={handleUpdateTodoStatus}
+      ></ListTodo>
     </div>
   );
 };
