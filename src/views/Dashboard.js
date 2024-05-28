@@ -11,12 +11,21 @@ const Dashboard = () => {
   const [searchItem, setSearchItem] = useState("");
   const [searchStatus, setSearchStatus] = useState("All");
   const handleUpdateTodoStatus = (index, status) => {
-    console.log(index, status);
     let updatedTodo = {
       ...todoList[index],
       status: status,
     };
-    console.log(updatedTodo);
+    setTodoList((prev) => {
+      const updatedTodoList = [...prev];
+      updatedTodoList.splice(index, 1, updatedTodo);
+      return updatedTodoList;
+    });
+  };
+  const handleUpdateTodoName = (index, name) => {
+    let updatedTodo = {
+      ...todoList[index],
+      name: name,
+    };
     setTodoList((prev) => {
       const updatedTodoList = [...prev];
       updatedTodoList.splice(index, 1, updatedTodo);
@@ -48,6 +57,7 @@ const Dashboard = () => {
         todoList={todoList}
         searchStatus={searchStatus}
         updateTodoStatus={handleUpdateTodoStatus}
+        updateTodoName={handleUpdateTodoName}
       ></ListTodo>
     </div>
   );

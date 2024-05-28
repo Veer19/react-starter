@@ -3,8 +3,9 @@ import Table from "react-bootstrap/Table";
 import Container from "react-bootstrap/Container";
 import { Form, InputGroup } from "react-bootstrap";
 import TodoStatus from "./TodoStatus";
+import TodoName from "./TodoName";
 
-const ListTodo = ({ searchItem, todoList, searchStatus, updateTodoStatus }) => {
+const ListTodo = ({ searchItem, todoList, searchStatus, updateTodoStatus, updateTodoName }) => {
   const filterTodoList = () => {
     const filteredList = todoList.filter((item) => {
       if (searchStatus.toLowerCase() == "all") {
@@ -39,7 +40,13 @@ const ListTodo = ({ searchItem, todoList, searchStatus, updateTodoStatus }) => {
               return (
                 <tr key={index}>
                   <td>{index + 1}</td>
-                  <td>{todoItem.name}</td>
+                  <td>
+                    <TodoName
+                      name={todoItem.name}
+                      todoIndex={index}
+                      updateTodoName={updateTodoName}
+                    />
+                  </td>
                   <td>
                     <TodoStatus
                       status={todoItem.status}
