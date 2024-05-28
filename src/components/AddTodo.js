@@ -1,27 +1,43 @@
 import { useState } from "react";
+import { Form, InputGroup } from "react-bootstrap";
+import Button from "react-bootstrap/Button";
 
 const AddTodo = ({ setTodoList }) => {
-  const [newTodoItem, setNewTodoItem] = useState("");
+  const initTodo = {
+    name: "",
+    status: "Pending",
+  };
+  // const [newTodoText, setNewTodoText] = useState("");
+  const [newTodoItem, setNewTodoITem] = useState(initTodo);
   const handleAddItem = () => {
     setTodoList((prev) => {
-      return [newTodoItem, ...prev];
+      return [{ ...newTodoItem, createdAt: Date.now() }, ...prev];
     });
-    setNewTodoItem("");
+    setNewTodoITem(initTodo);
   };
   return (
     <div>
-      <input
-        placeholder="Enter tasks"
-        type="text"
-        value={newTodoItem}
-        onKeyDown={(event) => {
-          if (event.key == "Enter") handleAddItem();
-        }}
-        onChange={(event) => {
-          setNewTodoItem(event.target.value);
-        }}
-      ></input>
-      <button onClick={handleAddItem}>ADD</button>
+      <InputGroup className="mb-3">
+        <Form.Control
+          placeholder="Enter tasks"
+          type="text"
+          value={newTodoItem.name}
+          onKeyDown={(event) => {
+            if (event.key == "Enter") handleAddItem();
+          }}
+          onChange={(event) => {
+            setNewTodoITem((prev) => {
+              return {
+                ...prev,
+                name: event.target.value,
+              };
+            });
+          }}
+        />
+        <Button variant="outline-secondary" onClick={handleAddItem}>
+          ADD
+        </Button>
+      </InputGroup>
     </div>
   );
 };
