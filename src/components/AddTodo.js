@@ -1,6 +1,22 @@
 import { useState } from "react";
 import { Form, InputGroup } from "react-bootstrap";
-import Button from "react-bootstrap/Button";
+import * as React from "react";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import Modal from "@mui/material/Modal";
+
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+};
 
 const AddTodo = ({ setTodoList }) => {
   const initTodo = {
@@ -9,16 +25,20 @@ const AddTodo = ({ setTodoList }) => {
   };
   // const [newTodoText, setNewTodoText] = useState("");
   const [newTodoItem, setNewTodoITem] = useState(initTodo);
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
   const handleAddItem = () => {
     setTodoList((prev) => {
       return [{ ...newTodoItem, createdAt: Date.now() }, ...prev];
     });
     setNewTodoITem(initTodo);
+    handleClose();
   };
   return (
     <div>
       <InputGroup className="mb-3">
-        <Form.Control
+        {/* <Form.Control
           placeholder="Enter tasks"
           type="text"
           value={newTodoItem.name}
@@ -36,24 +56,38 @@ const AddTodo = ({ setTodoList }) => {
         />
         <Button variant="outline-secondary" onClick={handleAddItem}>
           ADD
-        </Button>
+        </Button> */}
+        <Button onClick={handleOpen}>Add tasks</Button>
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={style}>
+            <Form.Control
+              placeholder="Enter tasks"
+              type="text"
+              value={newTodoItem.name}
+              onKeyDown={(event) => {
+                if (event.key == "Enter") handleAddItem();
+              }}
+              onChange={(event) => {
+                setNewTodoITem((prev) => {
+                  return {
+                    ...prev,
+                    name: event.target.value,
+                  };
+                });
+              }}
+            />
+            <Button variant="outline-secondary" onClick={handleAddItem}>
+              ADD
+            </Button>
+          </Box>
+        </Modal>
       </InputGroup>
     </div>
   );
 };
 export default AddTodo;
-
-// const arrow = () => {};
-// const arrow1 = (props) => {
-//   const { prop1, prop2 } = props;
-// };
-// const arrow2 = ({ prop1, prop2 }) => {
-//     [...arr1, newElement]
-//     {...object1, newKey: newElement}
-// };
-
-// const filtered = list.map(((element) => {
-//     return element
-// }))
-
-// useEffect(() => {}, [])
